@@ -11,6 +11,15 @@ module.exports = {
       return adminUser ? camelCase(adminUser) : null;
     },
     currentAdminUser: (root, args, { user }) => (user ? camelCase(user) : null),
+    isCurrentAdminUserSuperAdmin: (root, args, { user }) => {
+      if (user) {
+        const admin_super_uuid = getConfig('admin_super_uuid', null);
+        if (admin_super_uuid && user.uuid == admin_super_uuid) {
+          return true;
+        }
+      }
+      return false;
+    },
     adminUsers: async (_, { filters = [] }, { pool }) => {
       const query = select().from('admin_user');
       const currentFilters = [];

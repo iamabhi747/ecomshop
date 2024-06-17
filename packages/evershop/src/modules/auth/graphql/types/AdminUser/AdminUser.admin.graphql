@@ -22,5 +22,6 @@ type AdminUserCollection {
 extend type Query {
   adminUser(id: Int): AdminUser
   currentAdminUser: AdminUser
+  isCurrentAdminUserSuperAdmin: Boolean
   adminUsers(filters: [FilterInput]): AdminUserCollection
 }
