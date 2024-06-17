@@ -31,11 +31,9 @@ module.exports = {
       // If this is Admin, then only show/edit the products that belong to this admin
       // If this is Super Admin, then show/edit all products
       if (user) {
-        const admin_uuid_filter = query.andWhere('product.admin_user_uuid', '=', user.uuid);
-        
         const admin_super_uuid = getConfig('admin_super_uuid', null);
-        if (admin_super_uuid) {
-          admin_uuid_filter.or('product.admin_user_uuid', '=', admin_super_uuid);
+        if (!admin_super_uuid || user.uuid !== admin_super_uuid) {
+          query.andWhere('product.admin_user_uuid', '=', user.uuid);
         }
       }
 
