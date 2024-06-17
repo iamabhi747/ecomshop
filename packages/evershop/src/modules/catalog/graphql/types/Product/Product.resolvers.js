@@ -1,11 +1,11 @@
 const { select } = require('@evershop/postgres-query-builder');
 const { buildUrl } = require('@evershop/evershop/src/lib/router/buildUrl');
 const { camelCase } = require('@evershop/evershop/src/lib/util/camelCase');
+const { getConfig } = require('@evershop/evershop/src/lib/util/getConfig');
 const {
   getProductsBaseQuery
 } = require('../../../services/getProductsBaseQuery');
 const { ProductCollection } = require('../../../services/ProductCollection');
-const { getConfig } = require('@evershop/evershop/src/lib/util/getConfig');
 
 module.exports = {
   Product: {
@@ -30,8 +30,8 @@ module.exports = {
 
       // If this is Admin, then only show/edit the products that belong to this admin
       // If this is Super Admin, then show/edit all products
-      if (!!user) {
-        let admin_uuid_filter = query.andWhere('product.admin_user_uuid', '=', user.uuid);
+      if (user) {
+        const admin_uuid_filter = query.andWhere('product.admin_user_uuid', '=', user.uuid);
         
         const admin_super_uuid = getConfig('admin_super_uuid', null);
         if (admin_super_uuid) {
