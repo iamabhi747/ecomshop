@@ -5,6 +5,7 @@ const {
   getProductsBaseQuery
 } = require('../../../services/getProductsBaseQuery');
 const { ProductCollection } = require('../../../services/ProductCollection');
+const { getConfig } = require('@evershop/evershop/src/lib/util/getConfig');
 
 module.exports = {
   Product: {
@@ -23,9 +24,21 @@ module.exports = {
     }
   },
   Query: {
-    product: async (_, { id }, { pool }) => {
+    product: async (_, { id }, { pool, user}) => {
       const query = getProductsBaseQuery();
       query.where('product.product_id', '=', id);
+
+      // If this is Admin, then only show/edit the products that belong to this admin
+      // If this is Super Admin, then show/edit all products
+      if (!!user) {
+        let admin_uuid_filter = query.andWhere('product.admin_user_uuid', '=', user.uuid);
+        
+        const admin_super_uuid = getConfig('admin_super_uuid', null);
+        if (admin_super_uuid) {
+          admin_uuid_filter.or('product.admin_user_uuid', '=', admin_super_uuid);
+        }
+      }
+
       const result = await query.load(pool);
       if (!result) {
         return null;
