@@ -7,6 +7,6 @@ module.exports = exports = async (connection) => {
     await execute(
         connection,
         `ALTER TABLE product
-            ADD COLUMN IF NOT EXISTS admin_user_uuid UUID NOT NULL DEFAULT 0`
+            ADD COLUMN IF NOT EXISTS admin_user_uuid UUID DEFAULT NULL`
     );
 };
