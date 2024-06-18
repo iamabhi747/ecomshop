@@ -1,3 +1,6 @@
+extend type AdminUser {
+  updateApi: String!
+}
 
 """
 Retrieves a collection of admin users

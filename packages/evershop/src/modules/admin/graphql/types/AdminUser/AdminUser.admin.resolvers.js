@@ -1,6 +1,7 @@
 const { select } = require('@evershop/postgres-query-builder');
 const { camelCase } = require('@evershop/evershop/src/lib/util/camelCase');
 const { getConfig } = require('@evershop/evershop/src/lib/util/getConfig');
+const { buildUrl } = require('@evershop/evershop/src/lib/router/buildUrl');
 
 module.exports = {
   Query: {
@@ -106,5 +107,8 @@ module.exports = {
         currentFilters
       };
     }
+  },
+  AdminUser: {
+    updateApi: (adminUser) => buildUrl('updateAdmin', { id: adminUser.uuid })
   }
 };
