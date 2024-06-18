@@ -121,10 +121,10 @@ export default function AdminGrid({
   adminUsers: { items: admins, total, currentFilters = [] }
 }) {
   const page = currentFilters.find((filter) => filter.key === 'page')
-    ? currentFilters.find((filter) => filter.key === 'page').value
+    ? parseInt(currentFilters.find((filter) => filter.key === 'page').value, 10)
     : 1;
   const limit = currentFilters.find((filter) => filter.key === 'limit')
-    ? currentFilters.find((filter) => filter.key === 'limit').value
+    ? parseInt(currentFilters.find((filter) => filter.key === 'limit').value, 10)
     : 20;
   const [selectedRows, setSelectedRows] = useState([]);
 
@@ -132,7 +132,7 @@ export default function AdminGrid({
     <Card>
       <Card.Session
         title={
-          <Form submitBtn={false}>
+          <Form submitBtn={false} id="adminGridFilterForm">
             <div className="flex gap-8 justify-center items-center">
               <Area
                 id="adminGridFilter"
@@ -144,6 +144,7 @@ export default function AdminGrid({
                         <Field
                           type="text"
                           id="keyword"
+                          name="keyword"
                           placeholder="Search"
                           value={
                             currentFilters.find((f) => f.key === 'keyword')
@@ -260,7 +261,7 @@ export default function AdminGrid({
                     default: () => (
                       <SortableHeader
                         title="Email"
-                        email="email"
+                        name="email"
                         currentFilters={currentFilters}
                       />
                     )
@@ -384,7 +385,7 @@ AdminGrid.propTypes = {
   adminUsers: PropTypes.shape({
     items: PropTypes.arrayOf(
       PropTypes.shape({
-        admin_user_id: PropTypes.number.isRequired,
+        adminUserId: PropTypes.number.isRequired,
         uuid: PropTypes.string.isRequired,
         fullName: PropTypes.string.isRequired,
         email: PropTypes.string.isRequired,
@@ -392,9 +393,9 @@ AdminGrid.propTypes = {
         createdAt: PropTypes.shape({
           value: PropTypes.string.isRequired,
           text: PropTypes.string.isRequired
-        }).isRequired
+        }).isRequired,
         // editUrl: PropTypes.string.isRequired,
-        // updateApi: PropTypes.string.isRequired
+        updateApi: PropTypes.string.isRequired
       })
     ).isRequired,
     total: PropTypes.number.isRequired,
