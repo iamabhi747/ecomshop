@@ -1,0 +1,6 @@
+{
+    "methods": ["PATCH"],
+    "path": "/admins/:id",
+    "access": "public"
+  }
+  
