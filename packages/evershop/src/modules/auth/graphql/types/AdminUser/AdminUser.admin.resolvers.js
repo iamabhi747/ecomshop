@@ -1,10 +1,20 @@
 const { select } = require('@evershop/postgres-query-builder');
 const { camelCase } = require('@evershop/evershop/src/lib/util/camelCase');
-const { getConfig } = require('@evershop/evershop/src/lib/util/config');
+const { getConfig } = require('@evershop/evershop/src/lib/util/getConfig');
 
 module.exports = {
   Query: {
-    adminUser: async (root, { id }, { pool }) => {
+    adminUser: async (root, { id }, { pool, user }) => {
+
+      // only allow self and super admin to view the admin user
+      const admin_super_uuid = getConfig('admin_super_uuid', null);
+      if (!user || !user.uuid) {
+        return null;
+      }
+      if (user.id !== id && user.uuid !== admin_super_uuid) {
+        return null;
+      }
+
       const query = select().from('admin_user');
       query.where('admin_user_id', '=', id);
 
@@ -21,9 +31,19 @@ module.exports = {
       }
       return false;
     },
-    adminUsers: async (_, { filters = [] }, { pool }) => {
+    adminUsers: async (_, { filters = [] }, { pool, user }) => {
       const query = select().from('admin_user');
       const currentFilters = [];
+
+      // only allow super admin to view all admin users
+      const admin_super_uuid = getConfig('admin_super_uuid', null);
+      if ((!admin_super_uuid || !user) || user.uuid !== admin_super_uuid) {
+        return {
+          items: [],
+          total: 0,
+          currentFilters
+        };
+      }
 
       // Attribute filters
       filters.forEach((filter) => {
