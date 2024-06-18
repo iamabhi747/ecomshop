@@ -9,7 +9,7 @@ export default function AdminMenuGroup({ adminGrid, isSuperAdmin }) {
     items.push({
       Icon: UsersIcon,
       url: adminGrid,
-      title: 'Admin Users'
+      title: 'Admins'
     });
   }
 
