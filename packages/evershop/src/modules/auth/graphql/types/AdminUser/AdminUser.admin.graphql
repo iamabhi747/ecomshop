@@ -10,19 +10,7 @@ type AdminUser {
   createdAt: Date!
 }
 
-"""
-Retrieves a collection of admin users
-"""
-type AdminUserCollection {
-  items: [AdminUser]
-  currentPage: Int!
-  total: Int!
-  currentFilters: [Filter]
-}
-
 extend type Query {
-  adminUser(id: Int): AdminUser
   currentAdminUser: AdminUser
   isCurrentAdminUserSuperAdmin: Boolean
-  adminUsers(filters: [FilterInput]): AdminUserCollection
 }
