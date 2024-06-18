@@ -2,6 +2,7 @@ const { request } = require('express');
 const { select } = require('@evershop/postgres-query-builder');
 const { pool } = require('../../lib/postgres/connection');
 const { comparePassword } = require('../../lib/util/passwordHelper');
+const { getConfig } = require('../../lib/util/getConfig');
 
 module.exports = () => {
   request.loginUserWithEmail = async function loginUserWithEmail(
@@ -43,5 +44,13 @@ module.exports = () => {
 
   request.getCurrentUser = function getCurrentUser() {
     return this.locals.user;
+  };
+
+  request.isSuperAdmin = function isSuperAdmin() {
+    const admin_super_uuid = getConfig('admin_super_uuid', null);
+    if (admin_super_uuid && this.locals.user && this.locals.user.uuid === admin_super_uuid) {
+      return true;
+    }
+    return false;
   };
 };
