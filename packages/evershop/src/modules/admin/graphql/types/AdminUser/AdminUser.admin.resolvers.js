@@ -11,12 +11,12 @@ module.exports = {
       if (!user || !user.uuid) {
         return null;
       }
-      if (user.id !== id && user.uuid !== admin_super_uuid) {
+      if (user.uuid !== id && user.uuid !== admin_super_uuid) {
         return null;
       }
 
       const query = select().from('admin_user');
-      query.where('admin_user_id', '=', id);
+      query.where('uuid', '=', id);
 
       const adminUser = await query.load(pool);
       return adminUser ? camelCase(adminUser) : null;

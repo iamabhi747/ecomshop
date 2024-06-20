@@ -13,6 +13,6 @@ type AdminUserCollection {
 }
 
 extend type Query {
-  adminUser(id: Int): AdminUser
+  adminUser(id: String): AdminUser
   adminUsers(filters: [FilterInput]): AdminUserCollection
 }
