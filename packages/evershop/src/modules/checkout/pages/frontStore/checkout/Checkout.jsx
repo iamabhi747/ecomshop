@@ -74,7 +74,7 @@ function CompletedSteps() {
               {step.editable && (
                 <a
                   href="#"
-                  className="text-interactive hover:underline"
+                  className="text-warning hover:underline"
                   onClick={(e) => {
                     e.preventDefault();
                     editStep(step.id);
@@ -126,7 +126,7 @@ export default function CheckoutPage({
           <Area id="checkoutPageRight" />
         </div>
       </CheckoutProvider>
-    </CheckoutSteps>
+    </CheckoutSteps>  
   );
 }
 
