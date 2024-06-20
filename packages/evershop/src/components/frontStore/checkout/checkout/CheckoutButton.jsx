@@ -1,4 +1,4 @@
-git import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function CheckoutButton({ action, cartId }) {
