@@ -109,6 +109,7 @@ module.exports = {
     }
   },
   AdminUser: {
-    updateApi: (adminUser) => buildUrl('updateAdmin', { id: adminUser.uuid })
+    updateApi: (adminUser) => buildUrl('updateAdmin', { id: adminUser.uuid }),
+    viewUrl: (adminUser) => buildUrl('adminView', { id: adminUser.uuid }),
   }
 };
