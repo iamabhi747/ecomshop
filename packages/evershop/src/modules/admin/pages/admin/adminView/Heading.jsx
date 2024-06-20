@@ -2,11 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import PageHeading from '@components/admin/cms/PageHeading';
 
-export default function Heading({ backUrl, adminUser }) {
+export default function Heading({ backUrl, adminUser, isSuperAdmin }) {
+  if (isSuperAdmin) {
+    return <PageHeading backUrl={backUrl} heading={`Admin, ${adminUser.fullName}`} />;
+  }
   return (
     <PageHeading
-      backUrl={backUrl}
-      heading={`Admin ${adminUser.fullName}`}
+      heading={`Admin, ${adminUser.fullName}`}
     />
   );
 }
@@ -15,7 +17,8 @@ Heading.propTypes = {
   backUrl: PropTypes.string.isRequired,
   adminUser: PropTypes.shape({
     fullName: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  isSuperAdmin: PropTypes.bool.isRequired
 };
 
 export const layout = {
@@ -29,5 +32,6 @@ export const query = `
       fullName
     }
     backUrl: url(routeId: "adminGrid")
+    isSuperAdmin: isCurrentAdminUserSuperAdmin
   }
 `;
