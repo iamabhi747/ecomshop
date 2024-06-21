@@ -2,6 +2,8 @@ import { _ } from '@evershop/evershop/src/lib/locale/translate';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ProductNoThumbnail from '@components/common/ProductNoThumbnail';
+import ShipmentStatusRow from '@components/admin/oms/orderGrid/rows/ShipmentStatus';
+import PaymentStatusRow from '@components/admin/oms/orderGrid/rows/PaymentStatus';
 
 export default function Order({ order }) {
   return (
@@ -23,9 +25,9 @@ export default function Order({ order }) {
                 )}
               </div>
               <div className="order-item-info">
-                <div className="order-item-name font-semibold">
+                <a href={`/account/${ item.productName.replace(/ /g, '-') }`} className="order-item-name font-semibold">
                   {item.productName}
-                </div>
+                </a>
                 <div className="order-item-sku italic">
                   {_('Sku')}: #{item.productSku}
                 </div>
@@ -48,6 +50,8 @@ export default function Order({ order }) {
           <div className="order-total-value font-bold">
             {_('Total')}:{order.grandTotal.text}
           </div>
+          <ShipmentStatusRow status={order.shipmentStatus} />
+          <PaymentStatusRow status={order.paymentStatus}/>
         </div>
       </div>
     </div>
@@ -61,6 +65,18 @@ Order.propTypes = {
     }),
     grandTotal: PropTypes.shape({
       text: PropTypes.string.isRequired
+    }),
+    shipmentStatus: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      code: PropTypes.string.isRequired,
+      badge: PropTypes.string.isRequired,
+      progress: PropTypes.number.isRequired
+    }),
+    paymentStatus: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      code: PropTypes.string.isRequired,
+      badge: PropTypes.string.isRequired,
+      progress: PropTypes.number.isRequired
     }),
     items: PropTypes.arrayOf(
       PropTypes.shape({
