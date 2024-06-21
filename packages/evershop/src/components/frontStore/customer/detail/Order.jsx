@@ -2,6 +2,8 @@ import { _ } from '@evershop/evershop/src/lib/locale/translate';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ProductNoThumbnail from '@components/common/ProductNoThumbnail';
+import ShipmentStatusRow from '@components/admin/oms/orderGrid/rows/ShipmentStatus';
+import PaymentStatusRow from '@components/admin/oms/orderGrid/rows/PaymentStatus';
 
 export default function Order({ order }) {
   return (
@@ -48,6 +50,12 @@ export default function Order({ order }) {
           <div className="order-total-value font-bold">
             {_('Total')}:{order.grandTotal.text}
           </div>
+          <div>
+            <ShipmentStatusRow status = { order.shipmentStatus } /> 
+          </div>
+          <div>
+            <PaymentStatusRow status = { order.paymentStatus } /> 
+          </div>
         </div>
       </div>
     </div>
@@ -58,6 +66,18 @@ Order.propTypes = {
   order: PropTypes.shape({
     createdAt: PropTypes.shape({
       text: PropTypes.string.isRequired
+    }),
+    shipmentStatus: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      code: PropTypes.string.isRequired,
+      badge: PropTypes.string.isRequired,
+      progress: PropTypes.number.isRequired
+    }),
+    paymentStatus: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      code: PropTypes.string.isRequired,
+      badge: PropTypes.string.isRequired,
+      progress: PropTypes.number.isRequired
     }),
     grandTotal: PropTypes.shape({
       text: PropTypes.string.isRequired
