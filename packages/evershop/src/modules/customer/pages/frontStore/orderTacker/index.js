@@ -6,7 +6,6 @@ const {
 
 module.exports = async (request, response, delegate, next) => {
   try {
-    console.log(request.params.id)
     const query = select();
     query.from('order');
     query.andWhere('order.uuid', '=', request.params.id);
