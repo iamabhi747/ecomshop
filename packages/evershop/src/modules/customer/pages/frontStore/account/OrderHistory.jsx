@@ -26,6 +26,7 @@ OrderHistory.propTypes = {
       PropTypes.shape({
         orderId: PropTypes.string.isRequired,
         orderNumber: PropTypes.string.isRequired,
+        editUrl: PropTypes.string.isRequired,
         createdAt: PropTypes.shape({
           text: PropTypes.string.isRequired
         }),

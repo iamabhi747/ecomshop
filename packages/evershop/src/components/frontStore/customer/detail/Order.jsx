@@ -25,9 +25,9 @@ export default function Order({ order }) {
                 )}
               </div>
               <div className="order-item-info">
-                <div className="order-item-name font-semibold">
+                <a href={`/account/order/${order.orderId}`} className="order-item-name font-semibold">
                   {item.productName}
-                </div>
+                </a>
                 <div className="order-item-sku italic">
                   {_('Sku')}: #{item.productSku}
                 </div>
@@ -64,6 +64,7 @@ export default function Order({ order }) {
 
 Order.propTypes = {
   order: PropTypes.shape({
+    editUrl: PropTypes.string.isRequired,
     createdAt: PropTypes.shape({
       text: PropTypes.string.isRequired
     }),
