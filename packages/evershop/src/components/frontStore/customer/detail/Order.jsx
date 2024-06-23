@@ -65,6 +65,7 @@ export default function Order({ order }) {
 Order.propTypes = {
   order: PropTypes.shape({
     orderId: PropTypes.string.isRequired,
+    uuid: PropTypes.string.isRequired,
     createdAt: PropTypes.shape({
       text: PropTypes.string.isRequired
     }),
