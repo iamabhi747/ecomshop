@@ -92,7 +92,7 @@ Activities.propTypes = {
 
 export const layout = {
   areaId: 'leftSide',
-  sortOrder: 10
+  sortOrder: 20
 };
 
 export const query = `

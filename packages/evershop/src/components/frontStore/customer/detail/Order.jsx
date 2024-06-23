@@ -25,7 +25,7 @@ export default function Order({ order }) {
                 )}
               </div>
               <div className="order-item-info">
-                <a href={`/account/order/${order.orderId}`} className="order-item-name font-semibold">
+                <a href={`/account/order/${order.uuid}`} className="order-item-name font-semibold">
                   {item.productName}
                 </a>
                 <div className="order-item-sku italic">

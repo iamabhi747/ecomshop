@@ -24,9 +24,9 @@ OrderHistory.propTypes = {
   customer: PropTypes.shape({
     orders: PropTypes.arrayOf(
       PropTypes.shape({
+        uuid: PropTypes.string.isRequired,
         orderId: PropTypes.string.isRequired,
         orderNumber: PropTypes.string.isRequired,
-        editUrl: PropTypes.string.isRequired,
         createdAt: PropTypes.shape({
           text: PropTypes.string.isRequired
         }),
@@ -72,6 +72,7 @@ export const query = `
   query Query {
     customer: currentCustomer {
       orders {
+        uuid
         orderId
         orderNumber
         createdAt {

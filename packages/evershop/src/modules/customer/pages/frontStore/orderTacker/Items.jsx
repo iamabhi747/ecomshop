@@ -44,7 +44,7 @@ export default function Items({ order: { items, shipmentStatus } }) {
                       props: {
                         name: i.productName,
                         productSku: i.productSku,
-                        productUrl: i.productUrl,
+                        productUrl: `/${i.productName.replace(/ /g, '-').toLowerCase()}`,
                         variantOptions: JSON.parse(i.variantOptions || '[]')
                       }, // TODO: Implement custom options
                       sortOrder: 20,
@@ -72,11 +72,11 @@ export default function Items({ order: { items, shipmentStatus } }) {
           </tbody>
         </table>
       </Card.Session>
-      <Card.Session>
+      {/* <Card.Session>
         <div className="flex justify-end gap-4">
           <Area id="order_actions" noOuter />
         </div>
-      </Card.Session>
+      </Card.Session> */}
     </Card>
   );
 }
@@ -128,7 +128,7 @@ Items.propTypes = {
 
 export const layout = {
   areaId: 'leftSide',
-  sortOrder: 5
+  sortOrder: 10
 };
 
 export const query = `
@@ -139,7 +139,6 @@ export const query = `
         shipmentId
         carrier
         trackingNumber
-        updateShipmentApi
       }
       shipmentStatus {
         code
@@ -172,11 +171,7 @@ export const query = `
           text
         }
       }
-      createShipmentApi
     },
-    carriers {
-      label: name
-      value: code
-    }
+    
   }
 `;
