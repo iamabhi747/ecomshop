@@ -49,7 +49,6 @@ Customer.propTypes = {
   order: PropTypes.shape({
     customerFullName: PropTypes.string.isRequired,
     customerEmail: PropTypes.string.isRequired,
-    customerUrl: PropTypes.string,
     shippingAddress: PropTypes.shape({
       fullName: PropTypes.string.isRequired,
       address1: PropTypes.string.isRequired,
@@ -80,7 +79,8 @@ Customer.propTypes = {
         name: PropTypes.string.isRequired
       }).isRequired
     }).isRequired
-  }).isRequired
+  }).isRequired,
+  customerUrl: PropTypes.string.isRequired
 };
 
 export const layout = {
