@@ -8,9 +8,9 @@ export default function Customer({
     shippingAddress,
     billingAddress,
     customerFullName,
-    customerEmail,
-    customerUrl
-  }
+    customerEmail
+  },
+  customerUrl
 }) {
   return (
     <Card title="Customer">
@@ -23,7 +23,7 @@ export default function Customer({
             {customerFullName}
           </a>
         )}
-        {!customerUrl && <span>{customerEmail} (Guest Checkout)</span>}
+        {!customerUrl && <span>{customerEmail}</span>}
       </Card.Session>
       <Card.Session title="Contact information">
         <div>
@@ -127,5 +127,6 @@ export const query = `
         }
       }
     }
+    customerUrl: url(routeId: "account")
   }
 `;

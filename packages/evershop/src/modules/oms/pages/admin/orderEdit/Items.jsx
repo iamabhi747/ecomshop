@@ -128,7 +128,7 @@ Items.propTypes = {
 
 export const layout = {
   areaId: 'leftSide',
-  sortOrder: 5
+  sortOrder: 10
 };
 
 export const query = `
