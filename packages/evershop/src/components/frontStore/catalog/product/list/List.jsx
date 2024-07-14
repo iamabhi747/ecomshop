@@ -36,7 +36,7 @@ export default function ProductList({ products = [], countPerRow = 3 }) {
       {products.map((p) => (
         <Area
           id="productListingItem"
-          className="listing-tem p-5 rounded-2xl  shadow-lg transition-all duration-700 hover:scale-110"
+          className="listing-tem p-5 rounded-2xl bg-white  shadow-2xl transition-all duration-700 hover:scale-110"
           product={p}
           key={p.productId}
           coreComponents={[
