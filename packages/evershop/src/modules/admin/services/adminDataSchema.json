@@ -1,0 +1,89 @@
+{
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "errorMessage": {
+          "minLength": "Name should not be empty",
+          "type": "Name should be a string"
+        }
+      },
+      "phone": {
+        "type": "string",
+        "pattern": "^[0-9]+$",
+        "errorMessage": {
+          "pattern": "Phone number should be a number"
+        }
+      },
+      "email": {
+        "type": "string",
+        "format": "email",
+        "errorMessage": {
+          "format": "Email should be a valid email address"
+        }
+      },
+      "newStore": {
+        "type": "string",
+        "pattern": "1|0",
+        "errorMessage": {
+          "pattern": "Invalid data"
+        }
+      },
+      "storeName": {
+        "type": "string",
+        "minLength": 1,
+        "errorMessage": {
+          "minLength": "Store name should not be empty",
+          "type": "Name should be a string"
+        }
+      },
+      "storeDescription": {
+        "type": "string",
+        "skipEscape": true
+      },
+      "storePhoneNumber": {
+        "type": "string",
+        "pattern": "^[0-9]+$",
+        "errorMessage": {
+          "pattern": "Phone number should be a number"
+        }
+      },
+      "storeEmail": {
+        "type": "string",
+        "format": "email",
+        "errorMessage": {
+          "format": "Email should be a valid email address"
+        }
+      },
+      "storePostalCode": {
+        "type": "string",
+        "pattern": "^[0-9]+$",
+        "errorMessage": {
+          "pattern": "Postalcode should be a number"
+        }
+      },
+      "storeCountry": {
+        "type": "string"
+      },
+      "storeCity": {
+        "type": "string"
+      },
+      "storeProvince": {
+        "type": "string"
+      },
+      "storeAddress": {
+        "type": "string"
+      },
+      "storeID": {
+        "type": "string",
+        "pattern": "^[0-9a-fA-F-]{36}$",
+        "errorMessage": {
+          "pattern": "Store ID should be a valid UUID"
+        }
+      }
+    },
+    "additionalProperties": true
+  }
+
+  

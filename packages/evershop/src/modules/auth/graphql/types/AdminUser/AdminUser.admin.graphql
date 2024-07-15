@@ -6,6 +6,7 @@ type AdminUser {
   uuid: String!
   status: Int!
   email: String!
+  phone: String!
   fullName: String!
   createdAt: Date!
 }

@@ -1,0 +1,23 @@
+
+type StoreAddress {
+  country: String!
+  province: String!
+  city: String!
+  postalCode: String!
+  address: String!
+}
+
+type Store {
+  uuid: ID!
+  name: String!
+  description: String
+  status: Boolean!
+  phone: String!
+  email: String!
+  createdAt: String!
+  address: StoreAddress!
+}
+
+extend type Query {
+  store(id: String): Store
+}
