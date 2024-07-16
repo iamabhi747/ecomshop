@@ -24,6 +24,7 @@ OrderHistory.propTypes = {
   customer: PropTypes.shape({
     orders: PropTypes.arrayOf(
       PropTypes.shape({
+        uuid: PropTypes.string.isRequired,
         orderId: PropTypes.string.isRequired,
         orderNumber: PropTypes.string.isRequired,
         createdAt: PropTypes.shape({
@@ -32,12 +33,14 @@ OrderHistory.propTypes = {
         shipmentStatus: PropTypes.shape({
           name: PropTypes.string.isRequired,
           code: PropTypes.string.isRequired,
-          badge: PropTypes.string.isRequired
+          badge: PropTypes.string.isRequired,
+          progress: PropTypes.number.isRequired
         }),
         paymentStatus: PropTypes.shape({
           name: PropTypes.string.isRequired,
           code: PropTypes.string.isRequired,
-          badge: PropTypes.string.isRequired
+          badge: PropTypes.string.isRequired,
+          progress: PropTypes.number.isRequired
         }),
         grandTotal: PropTypes.shape({
           value: PropTypes.number.isRequired,
@@ -69,6 +72,7 @@ export const query = `
   query Query {
     customer: currentCustomer {
       orders {
+        uuid
         orderId
         orderNumber
         createdAt {
@@ -78,11 +82,13 @@ export const query = `
           name
           code
           badge
+          progress
         }
         paymentStatus {
           name
           code
           badge
+          progress
         }
         grandTotal {
           value

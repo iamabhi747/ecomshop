@@ -5,7 +5,7 @@ import ProductNoThumbnail from '@components/common/ProductNoThumbnail';
 
 function Thumbnail({ url, imageUrl, alt }) {
   return (
-    <div className="product-thumbnail-listing">
+    <a href={url} className="product-thumbnail-listing rounded-2xl">
       {imageUrl && (
         <a href={url}>
           <img src={imageUrl} alt={alt} />
@@ -16,7 +16,7 @@ function Thumbnail({ url, imageUrl, alt }) {
           <ProductNoThumbnail width={100} height={100} />
         </a>
       )}
-    </div>
+    </a>
   );
 }
 
