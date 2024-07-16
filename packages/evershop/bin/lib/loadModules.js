@@ -1,9 +1,16 @@
 const path = require('path');
 const { readdirSync } = require('fs');
+// eslint-disable-next-line no-unused-vars
+const { name } = require('pubsub-js');
 
 module.exports = exports = {};
 
 const coreModules = [
+  {
+    name: 'admin',
+    resolve: path.resolve(__dirname, '../../src/modules/admin'),
+    path: path.resolve(__dirname, '../../src/modules/admin')
+  },
   {
     name: 'auth',
     resolve: path.resolve(__dirname, '../../src/modules/auth'),

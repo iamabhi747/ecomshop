@@ -1,0 +1,19 @@
+extend type AdminUser {
+  updateApi: String!
+  viewUrl: String!
+}
+
+"""
+Retrieves a collection of admin users
+"""
+type AdminUserCollection {
+  items: [AdminUser]
+  currentPage: Int!
+  total: Int!
+  currentFilters: [Filter]
+}
+
+extend type Query {
+  adminUser(id: String): AdminUser
+  adminUsers(filters: [FilterInput]): AdminUserCollection
+}

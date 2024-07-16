@@ -6,21 +6,12 @@ type AdminUser {
   uuid: String!
   status: Int!
   email: String!
+  phone: String!
   fullName: String!
-}
-
-"""
-Retrieves a collection of admin users
-"""
-type AdminUserCollection {
-  items: [AdminUser]
-  currentPage: Int!
-  total: Int!
-  currentFilters: [Filter]
+  createdAt: Date!
 }
 
 extend type Query {
-  adminUser(id: Int): AdminUser
   currentAdminUser: AdminUser
-  adminUsers(filters: [FilterInput]): AdminUserCollection
+  isCurrentAdminUserSuperAdmin: Boolean
 }
