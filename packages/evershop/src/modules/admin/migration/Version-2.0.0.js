@@ -23,7 +23,7 @@ module.exports = exports = async (connection) => {
         connection,
         `ALTER TABLE "admin_user"
         ADD IF NOT EXISTS "store_uuid" UUID NOT NULL,
-        ADD IF NOT EXISTS "phone" varchar NOT NULL DEFAULT '1234567890'
-        ADD CONSTRAINT "STORE_UUID" FOREIGN KEY ("store_uuid") REFERENCES "store_info" ("uuid");;`
+        ADD IF NOT EXISTS "phone" varchar NOT NULL DEFAULT '1234567890',
+        ADD CONSTRAINT "STORE_UUID" FOREIGN KEY ("store_uuid") REFERENCES "store_info" ("uuid");`
     )
 };
