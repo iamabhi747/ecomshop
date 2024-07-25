@@ -8,6 +8,7 @@ function TextArea({
   value,
   label,
   onChange,
+  disabled,
   error,
   instruction,
   placeholder
@@ -35,6 +36,7 @@ function TextArea({
           placeholder={placeholder}
           value={_value}
           onChange={onChangeFunc}
+          disabled={disabled}
         />
         <div className="field-border" />
       </div>
@@ -53,7 +55,8 @@ TextArea.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   value: PropTypes.string,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
+  disabled: PropTypes.bool
 };
 
 TextArea.defaultProps = {
@@ -62,7 +65,8 @@ TextArea.defaultProps = {
   label: undefined,
   onChange: undefined,
   value: undefined,
-  placeholder: undefined
+  placeholder: undefined,
+  disabled: false
 };
 
 export { TextArea };

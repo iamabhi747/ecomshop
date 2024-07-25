@@ -12,6 +12,7 @@ const Select = React.forwardRef((props, ref) => {
     value,
     label,
     onChange,
+    disabled,
     error,
     instruction,
     options
@@ -34,6 +35,7 @@ const Select = React.forwardRef((props, ref) => {
           name={name}
           placeholder={placeholder}
           value={_value}
+          disabled = {disabled}
           onChange={(e) => {
             if (onChange) {
               onChange.call(window, e);
@@ -81,6 +83,7 @@ Select.propTypes = {
   error: PropTypes.string,
   instruction: PropTypes.string,
   label: PropTypes.string,
+  disabled: PropTypes.bool,
   name: PropTypes.string,
   onChange: PropTypes.func,
   options: PropTypes.arrayOf(
@@ -99,6 +102,7 @@ Select.defaultProps = {
   instruction: undefined,
   label: undefined,
   onChange: undefined,
+  disabled:false,
   options: [],
   placeholder: undefined,
   name: undefined,

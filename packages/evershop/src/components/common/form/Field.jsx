@@ -36,7 +36,7 @@ const useMemoizeArgs = (args, equalityFunc) => {
 };
 
 export function Field(props) {
-  const { name, value, validationRules, onChange, type } = props;
+  const { name, value, validationRules, onChange, type, disabled } = props;
   const context = useFormContext();
   const [fieldValue, setFieldValue] = React.useState(value);
   const field = context.fields.find((f) => f.name && f.name === name);
@@ -109,21 +109,24 @@ export function Field(props) {
       default:
         return Input;
     }
-  })();
+  })
+  ();
   return (
     <F
-      {...props}
+    {...props}
+      disabled={disabled}
       onChange={onChangeFunc}
       value={fieldValue}
       error={field ? field.error : undefined}
-    />
-  );
-}
-
+      />
+    );
+  }
+  
 Field.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func,
+  disabled: PropTypes.bool,
   validationRules: PropTypes.arrayOf(PropTypes.string),
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
@@ -131,5 +134,6 @@ Field.propTypes = {
 Field.defaultProps = {
   onChange: undefined,
   validationRules: [],
-  value: ''
+  value: '',
+  disabled: false 
 };

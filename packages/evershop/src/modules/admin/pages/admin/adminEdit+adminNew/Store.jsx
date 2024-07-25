@@ -29,6 +29,7 @@ const CountriesQuery = `
 function Province({
   selectedCountry = 'US',
   selectedProvince,
+  checked,
   allowedCountries = [],
   fieldName = 'storeProvince'
 }) {
@@ -63,6 +64,7 @@ function Province({
         placeholder="Province"
         validationRules={['notEmpty']}
         options={provinces.map((p) => ({ value: p.code, text: p.name }))}
+        disabled= {!checked}
       />
     </div>
   );
@@ -71,6 +73,7 @@ function Province({
 Province.propTypes = {
   allowedCountries: PropTypes.arrayOf(PropTypes.string),
   fieldName: PropTypes.string,
+  checked: PropTypes.bool,
   selectedCountry: PropTypes.string,
   selectedProvince: PropTypes.string
 };
@@ -79,12 +82,14 @@ Province.defaultProps = {
   allowedCountries: [],
   fieldName: 'storeProvince',
   selectedCountry: 'IN',
-  selectedProvince: ''
+  selectedProvince: '',
+  checked: false
 };
 
 function Country({
   selectedCountry,
   setSelectedCountry,
+  checked,
   allowedCountries = [],
   fieldName = 'storeCountry'
 }) {
@@ -119,6 +124,7 @@ function Country({
         onChange={onChange}
         validationRules={['notEmpty']}
         options={data.countries.map((c) => ({ value: c.code, text: c.name }))}
+        disabled= {checked}
       />
     </div>
   );
@@ -128,17 +134,20 @@ Country.propTypes = {
   allowedCountries: PropTypes.arrayOf(PropTypes.string),
   fieldName: PropTypes.string,
   selectedCountry: PropTypes.string.isRequired,
-  setSelectedCountry: PropTypes.func.isRequired
+  setSelectedCountry: PropTypes.func.isRequired,
+  checked: PropTypes.bool
 };
 
 Country.defaultProps = {
   allowedCountries: [],
-  fieldName: 'storeCountry'
+  fieldName: 'storeCountry',
+  checked: false
 };
 
 export default function Store({
   store
 }) {
+  const [checked, setChecked] = React.useState(false);
   const [selectedCountry, setSelectedCountry] = React.useState(() => {
     const country = store ? store.address.country : null;
     if (!country) {
@@ -147,6 +156,7 @@ export default function Store({
       return country;
     }
   });
+ 
 
   return (
     <Card>
@@ -157,6 +167,7 @@ export default function Store({
           placeholder="Store ID"
           value={store ? store.uuid : ''}
           type="text"
+          disabled= {checked}
         />
         {!store ?
         <Field
@@ -165,7 +176,11 @@ export default function Store({
           label="Create new store"
           // eslint-disable-next-line no-unused-vars
           onChange={(e) => {
-            //
+            if(e.target.checked) { 
+              setChecked(true)
+            }else { 
+              setChecked(false)              
+            }
           }}
         /> : null}
       </Card.Session>
@@ -176,13 +191,15 @@ export default function Store({
           placeholder="Store Name"
           value={store ? store.name : ''}
           type="text"
+          disabled= {!checked }
         />
         <Field
+          type="textarea"
           name="storeDescription"
           label="Store Description"
           placeholder="Store Description"
           value={store ? store.description : ''}
-          type="textarea"
+          disabled= {!checked }
         />
       </Card.Session>
       <Card.Session title="Contact Information">
@@ -194,6 +211,7 @@ export default function Store({
               value={store ? store.phone : ''}
               placeholder="Store Phone Number"
               type="text"
+              disabled= {!checked }
             />
           </div>
           <div>
@@ -203,6 +221,7 @@ export default function Store({
               value={store ? store.email : ''}
               placeholder="Store Email"
               type="text"
+              disabled= {!checked }
             />
           </div>
         </div>
@@ -211,6 +230,7 @@ export default function Store({
         <Country
           selectedCountry={store ? store.address.country : selectedCountry}
           setSelectedCountry={setSelectedCountry}
+          checked={checked}
         />
         <Field
           name="storeAddress"
@@ -218,6 +238,7 @@ export default function Store({
           value={store ? store.address.address : ''}
           placeholder="Store Address"
           type="text"
+          disabled= {!checked }
         />
         <div className="grid grid-cols-3 gap-8 mt-8">
           <div>
@@ -227,11 +248,13 @@ export default function Store({
               value={store ? store.address.city : ''}
               placeholder="City"
               type="text"
+              disabled= {!checked }
             />
           </div>
           <Province
             selectedProvince={store ? store.address.province : ''}
             selectedCountry={selectedCountry}
+            checked={checked}
           />
           <div>
             <Field
@@ -240,6 +263,7 @@ export default function Store({
               value={store ? store.address.postalCode : ''}
               placeholder="PostalCode"
               type="text"
+              disabled= {!checked }
             />
           </div>
         </div>
