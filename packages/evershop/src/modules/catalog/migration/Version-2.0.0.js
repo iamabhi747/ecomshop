@@ -4,7 +4,7 @@ module.exports = exports = async (connection) => {
     await execute(
         connection,
         `ALTER TABLE "product"
-          ADD COLUMN IF NOT EXISTS "store_uuid" UUID NOT NULL DEFAULT '1270804a-9062-4bec-84d4-9454c60fedbf',
+          ADD COLUMN IF NOT EXISTS "store_uuid" UUID NOT NULL DEFAULT '5305318d-b01e-48f5-b564-7dff294c9b53',
           ADD CONSTRAINT "STORE_UUID" FOREIGN KEY ("store_uuid") REFERENCES "store_info" ("uuid")`
     );
 };
