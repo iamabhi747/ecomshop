@@ -13,7 +13,7 @@ export default function CatalogMenuGroup({
   attributeGrid,
   collectionGrid
 }) {
-  let items = [];
+  const items = [];
 
   items.push({
     Icon: ProductIcon,
