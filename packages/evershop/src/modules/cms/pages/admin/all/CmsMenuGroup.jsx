@@ -1,22 +1,25 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import Icon from '@heroicons/react/solid/esm/DocumentIcon';
-import NavigationItemGroup from '@components/admin/cms/NavigationItemGroup';
+// import React from 'react';
+// import Icon from '@heroicons/react/solid/esm/DocumentIcon';
+// import NavigationItemGroup from '@components/admin/cms/NavigationItemGroup';
 
+// eslint-disable-next-line no-unused-vars
 export default function CmsMenuGroup({ cmsPageGrid }) {
-  return (
-    <NavigationItemGroup
-      id="cmsMenuGroup"
-      name="CMS"
-      items={[
-        {
-          Icon,
-          url: cmsPageGrid,
-          title: 'Pages'
-        }
-      ]}
-    />
-  );
+  return null;
+
+  // return (
+  //   <NavigationItemGroup
+  //     id="cmsMenuGroup"
+  //     name="CMS"
+  //     items={[
+  //       {
+  //         Icon,
+  //         url: cmsPageGrid,
+  //         title: 'Pages'
+  //       }
+  //     ]}
+  //   />
+  // );
 }
 
 CmsMenuGroup.propTypes = {
