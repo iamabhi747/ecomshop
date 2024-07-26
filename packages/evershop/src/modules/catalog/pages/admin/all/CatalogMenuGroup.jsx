@@ -7,42 +7,52 @@ import ProductIcon from '@heroicons/react/solid/esm/ArchiveIcon';
 import NavigationItemGroup from '@components/admin/cms/NavigationItemGroup';
 
 export default function CatalogMenuGroup({
+  isSuperAdmin,
   productGrid,
   categoryGrid,
   attributeGrid,
   collectionGrid
 }) {
+  let items = [];
+
+  items.push({
+    Icon: ProductIcon,
+    url: productGrid,
+    title: 'Products'
+  });
+
+  if (isSuperAdmin) {
+    items.push({
+      Icon: CategoryIcon,
+      url: categoryGrid,
+      title: 'Categories'
+    });
+  }
+
+  items.push({
+    Icon: CollectionIcon,
+    url: collectionGrid,
+    title: 'Collections'
+  });
+
+  items.push({
+    Icon: AttributeIcon,
+    url: attributeGrid,
+    title: 'Attributes'
+  });
+
+
   return (
     <NavigationItemGroup
       id="catalogMenuGroup"
       name="Catalog"
-      items={[
-        {
-          Icon: ProductIcon,
-          url: productGrid,
-          title: 'Products'
-        },
-        {
-          Icon: CategoryIcon,
-          url: categoryGrid,
-          title: 'Categories'
-        },
-        {
-          Icon: CollectionIcon,
-          url: collectionGrid,
-          title: 'Collections'
-        },
-        {
-          Icon: AttributeIcon,
-          url: attributeGrid,
-          title: 'Attributes'
-        }
-      ]}
+      items={items}
     />
   );
 }
 
 CatalogMenuGroup.propTypes = {
+  isSuperAdmin: PropTypes.bool.isRequired,
   attributeGrid: PropTypes.string.isRequired,
   categoryGrid: PropTypes.string.isRequired,
   collectionGrid: PropTypes.string.isRequired,
@@ -60,5 +70,6 @@ export const query = `
     categoryGrid: url(routeId:"categoryGrid")
     attributeGrid: url(routeId:"attributeGrid")
     collectionGrid: url(routeId:"collectionGrid")
+    isSuperAdmin: isCurrentAdminUserSuperAdmin
   }
 `;

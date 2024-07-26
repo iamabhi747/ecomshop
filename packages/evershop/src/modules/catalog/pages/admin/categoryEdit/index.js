@@ -5,6 +5,12 @@ const {
 } = require('../../../../graphql/services/contextHelper');
 
 module.exports = async (request, response, delegate, next) => {
+  const isSuperAdmin = request.isSuperAdmin();
+  if (!isSuperAdmin) {
+    response.status(404);
+    next();
+  }
+
   try {
     const query = select();
     query.from('category');
