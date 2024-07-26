@@ -124,7 +124,7 @@ function Country({
         onChange={onChange}
         validationRules={['notEmpty']}
         options={data.countries.map((c) => ({ value: c.code, text: c.name }))}
-        disabled= {checked}
+        disabled= {!checked}
       />
     </div>
   );
