@@ -88,11 +88,13 @@ function validateAdminDataBeforeInsert(data) {
         email: data.storeEmail,
         status: true,
         address: {
-          address: data.storeAddress,
-          city: data.storeCity,
-          province: data.storeProvince,
+          full_name: data.storeName,
+          postcode: data.storePostalCode,
+          telephone: data.storePhoneNumber,
           country: data.storeCountry,
-          postalcode: data.storePostalCode
+          province: data.storeProvince,
+          city: data.storeCity,
+          address_1: data.storeAddress
         }
       }
     }
