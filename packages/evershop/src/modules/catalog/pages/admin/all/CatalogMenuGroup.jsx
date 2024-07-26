@@ -35,11 +35,13 @@ export default function CatalogMenuGroup({
     title: 'Collections'
   });
 
-  items.push({
-    Icon: AttributeIcon,
-    url: attributeGrid,
-    title: 'Attributes'
-  });
+  if (isSuperAdmin) {
+    items.push({
+      Icon: AttributeIcon,
+      url: attributeGrid,
+      title: 'Attributes'
+    });
+  }
 
 
   return (
