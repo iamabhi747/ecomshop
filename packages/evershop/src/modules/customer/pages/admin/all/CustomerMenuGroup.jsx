@@ -3,7 +3,11 @@ import React from 'react';
 import UsersIcon from '@heroicons/react/solid/esm/UsersIcon';
 import NavigationItemGroup from '@components/admin/cms/NavigationItemGroup';
 
-export default function CustomerMenuGroup({ customerGrid }) {
+export default function CustomerMenuGroup({ isSuperAdmin, customerGrid }) {
+  if (!isSuperAdmin) {
+    return null;
+  }
+
   return (
     <NavigationItemGroup
       id="customerMenuGroup"
@@ -20,6 +24,7 @@ export default function CustomerMenuGroup({ customerGrid }) {
 }
 
 CustomerMenuGroup.propTypes = {
+  isSuperAdmin: PropTypes.bool.isRequired,
   customerGrid: PropTypes.string.isRequired
 };
 
@@ -31,5 +36,6 @@ export const layout = {
 export const query = `
   query Query {
     customerGrid: url(routeId:"customerGrid")
+    isSuperAdmin: isCurrentAdminUserSuperAdmin
   }
 `;
