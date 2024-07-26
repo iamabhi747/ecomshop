@@ -17,11 +17,11 @@ export default function AdminLayout() {
           <Area id="content" className="main-content-inner" />
           <div className="footer">
             <div className="copyright">
-              <span>Copyright © 2021 EverShop</span>
+              <span>Copyright © 2024 CompanyName</span>
             </div>
-            <div className="version">
+            {/* <div className="version">
               <span>Version 1.0 dev</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
