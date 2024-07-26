@@ -40,7 +40,7 @@ module.exports = {
       }
 
       if (user && !isSuperAdmin) {
-        query.where('product.store_uuid', '=', user.store_uuid);
+        query.andWhere('product.store_uuid', '=', user.store_uuid);
       }
       
       const result = await query.load(pool);
@@ -65,7 +65,7 @@ module.exports = {
       }
 
       if (user && !isSuperAdmin) {
-        query.where('product.store_uuid', '=', user.store_uuid);
+        query.andWhere('product.store_uuid', '=', user.store_uuid);
       }
       
       const root = new ProductCollection(query);
