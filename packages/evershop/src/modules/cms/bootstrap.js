@@ -19,7 +19,7 @@ module.exports = () => {
       scripts: [],
       bases: []
     },
-    copyRight: `© 2022 Evershop. All Rights Reserved.`
+    copyRight: `© 2024 Ecomshop. All Rights Reserved.`
   };
   config.util.setModuleDefaults('themeConfig', themeConfig);
   config.util.setModuleDefaults('system', {
