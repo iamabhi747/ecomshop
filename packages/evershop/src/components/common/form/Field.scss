@@ -12,6 +12,8 @@ html {
 
     &:focus {
       outline: none;
+      box-shadow: none; 
+      
 
       & + .field-border:after {
         box-shadow: 0 0 0 2px #458fff;
@@ -33,6 +35,11 @@ select {
   & ~ .field-suffix {
     margin-left: -1.85rem;
   }
+}
+input[type='text']:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
 }
 input[type='radio'] {
   width: 0;

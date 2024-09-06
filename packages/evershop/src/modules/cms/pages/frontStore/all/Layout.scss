@@ -181,8 +181,8 @@ h6 {
   min-height: calc(100vh - 50px);
 }
 .header {
-  padding: 2.5rem;
-  border-bottom: 1px solid #ebebeb;
+  padding: 1rem;
+  border-bottom: 2px solid var(--divider);
   margin-bottom: 3rem;
   @media only screen and (min-width: 1200px) {
     padding-left: 50px;

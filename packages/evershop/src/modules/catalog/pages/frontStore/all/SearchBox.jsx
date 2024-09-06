@@ -54,7 +54,7 @@ export default function SearchBox({ searchPageUrl }) {
                 setShowing(false);
               }}
             >
-              <XIcon width="2rem" height="2rem" />
+              <XIcon width="2rem" height="2 rem" />
             </a>
             <Input
               prefix={
