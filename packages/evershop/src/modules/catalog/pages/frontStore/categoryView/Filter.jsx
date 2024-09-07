@@ -82,7 +82,7 @@ export default function Filter({
   return (
     <FilterDispatch.Provider value={contextValue}>
       <div
-        className={`product-filter-tool hidden md:block ${
+        className={`product-filter-tool hidden md:block bg-white p-6 rounded-2xl shadow-lg ${
           isOpen ? 'opening' : 'closed'
         }`}
       >
