@@ -45,6 +45,18 @@ module.exports = async (request, response, delegate, next) => {
       return;
     }
 
+    // Check if all products in cart are of same store
+    if (cart.getItems().length > 0 && cart.getData('store_uuid') !== product.store_uuid) {
+      response.status(INVALID_PAYLOAD);
+      response.json({
+        error: {
+          status: INVALID_PAYLOAD,
+          message: 'Cart can not contains products from different stores'
+        }
+      });
+      return;
+    }
+
     // If everything is fine, add the product to the cart
     const item = await cart.addItem(product.product_id, parseInt(qty, 10));
     await saveCart(cart);

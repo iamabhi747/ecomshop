@@ -36,6 +36,20 @@ module.exports.registerCartBaseFields = function registerCartBaseFields() {
       dependencies: ['cart_id']
     },
     {
+      key: 'store_uuid',
+      resolvers: [
+        async function resolver() {
+          let store_uuid;
+          const items = this.getData("items");
+          if (items?.length > 0) {
+            store_uuid = (await items[0].getProduct()).store_uuid;
+          }
+          return store_uuid;
+        }
+      ],
+      dependencies: ['items']
+    },
+    {
       key: 'currency',
       resolvers: [
         async function resolver() {
