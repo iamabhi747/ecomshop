@@ -9,9 +9,19 @@ export default function Menu({ menu: { items } }) {
         {items.map((i, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <li className="nav-item" key={index}>
-            <a className="nav-link hover:underline" href={i.url}>
+            {/* <a className="nav-link hover:underline" href={i.url}>
               {i.name}
-            </a>
+            </a> */}
+
+            <div class="dropdown">
+              <a class="dropbtn">Dropdown</a>
+              <div class="dropdown-content">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+              </div>
+            </div>
+
           </li>
         ))}
       </ul>
