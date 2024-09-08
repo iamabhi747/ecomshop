@@ -8,6 +8,8 @@ module.exports = {
         .select('uuid')
         .select('request_path')
         .select('url_key')
+        .select('parent_id')
+        .select('category_id')
         .from('category', 'cat');
       query
         .leftJoin('category_description', 'des')
@@ -24,7 +26,9 @@ module.exports = {
 
       const items = (await query.execute(pool)).map((i) => ({
         name: i.name,
-        url: i.request_path || buildUrl('categoryView', { uuid: i.uuid })
+        url: i.request_path || buildUrl('categoryView', { uuid: i.uuid }),
+        categoryId: i.category_id,
+        parentId: i.parent_id
       }));
 
       return { items };
