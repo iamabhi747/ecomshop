@@ -2,7 +2,8 @@ const { insert, select } = require('@evershop/postgres-query-builder');
 const { pool } = require('@evershop/evershop/src/lib/postgres/connection');
 const {
   OK,
-  INTERNAL_SERVER_ERROR
+  INTERNAL_SERVER_ERROR,
+  INVALID_PAYLOAD
 } = require('@evershop/evershop/src/lib/util/httpStatus');
 const { error } = require('@evershop/evershop/src/lib/log/logger');
 const crypto = require('crypto');
@@ -33,17 +34,27 @@ module.exports = async (request, response, delegate, next) => {
           token: hash
         })
         .execute(pool);
+
+      response.status(OK);
+      response.$body = {
+        token,
+        email
+      };
+
+      // The email will be taken care by the email extension. SendGrid for example
+      // An extension can add a middleware to this route to send email
+      next();
+    }
+    else {
+      response.status(INVALID_PAYLOAD);
+      response.json({
+        error: {
+          status: INVALID_PAYLOAD,
+          message: 'Account does not exist'
+        }
+      });
     }
 
-    response.status(OK);
-    response.$body = {
-      token,
-      email
-    };
-
-    // The email will be taken care by the email extension. SendGrid for example
-    // An extension can add a middleware to this route to send email
-    next();
   } catch (e) {
     error(e);
     response.status(INTERNAL_SERVER_ERROR);
