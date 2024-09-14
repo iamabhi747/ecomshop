@@ -132,7 +132,7 @@ module.exports = {
       );
     },
     parent: async (category, _, { pool }) => {
-      if (!category.parentId) {
+      if (category.parentId === -1) {
         return null;
       }
       const query = select().from('category');

@@ -56,7 +56,7 @@ module.exports = async function registerDefaultCategoryCollectionFilters() {
       operation: ['eq'],
       callback: (query, operation, value, currentFilters) => {
         if (value === null) {
-          query.andWhere('category.parent_id', 'IS NULL');
+          query.andWhere('category.parent_id', '=', -1);
         } else {
           query.andWhere('category.parent_id', OPERATION_MAP[operation], value);
         }
