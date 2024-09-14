@@ -7,10 +7,10 @@ const {
 
 module.exports = (request, response, delegate, next) => {
 
-    setContextValue(request, 'pageInfo', {
-      title: translate('Reset password'),
-      description: translate('Reset password')
-    });
-    next();
+  setContextValue(request, 'pageInfo', {
+    title: translate('Change Password'),
+    description: translate('Change password')
+  });
+  next();
 
 };

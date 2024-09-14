@@ -20,6 +20,11 @@ export default function AccountDetails({ account }) {
             </div>
             <div>{account.email}</div>
           </div>
+          <div className='changePassword'>
+            <a href="/account/change-password" >
+              Change Password
+            </a>
+          </div>
         </div>
       </div>
     </div>
