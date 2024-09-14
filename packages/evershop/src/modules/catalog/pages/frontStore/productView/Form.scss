@@ -2,15 +2,17 @@
   .add-to-cart {
     .button {
       display: block;
-      background-color: #fff;
       color: #3a3a3a;
       border: 1px solid #3a3a3a;
       border-radius: 2px;
       padding: 10px 18px;
       font-size: 13px;
       width: 100%;
-      background-color: #fff;
+      background-color: #ff4447;
       box-shadow: none;
+    }
+    .button:hover{
+      background-color: #ff6163;
     }
     .field-error {
       display: none;
