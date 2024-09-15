@@ -7,8 +7,8 @@ export default function AccountDetails({ account }) {
   return (
     <div className="account-details">
       <div className="account-details-inner">
-        <div className="grid grid-cols-1 gap-4">
-          <div className="account-details-name flex gap-4">
+        <div className="grid grid-cols-1 gap-7">
+          <div className="account-details-name flex gap-7">
             <div>
               <User width={20} height={20} />
             </div>
@@ -21,7 +21,7 @@ export default function AccountDetails({ account }) {
             <div>{account.email}</div>
           </div>
           <div className='changePassword'>
-            <a href="/account/change-password" >
+            <a className='text-white bg-[#ff4447] p-4 rounded-md m-5 hover:bg-[#ff6163]' href="/account/change-password" >
               Change Password
             </a>
           </div>

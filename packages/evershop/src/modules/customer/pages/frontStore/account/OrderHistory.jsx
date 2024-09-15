@@ -11,7 +11,7 @@ export default function OrderHistory({ customer: { orders = [] } }) {
           {_('You have not placed any orders yet')}
         </div>
       )}
-      {orders.map((order) => (
+      {orders.toReversed().map((order) => (
         <div className="order-history-order border-divider py-8">
           <Order order={order} key={order.orderId} />
         </div>
