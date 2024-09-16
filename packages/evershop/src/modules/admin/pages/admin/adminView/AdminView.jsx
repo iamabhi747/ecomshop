@@ -45,6 +45,17 @@ Status.propTypes = {
   status: PropTypes.number.isRequired
 };
 
+function ChangePassword() {
+  return (
+    <Card.Session title="Change Password">
+      <div>
+        <a className='text-white bg-[#ff4447] p-4 rounded-md m-5 hover:bg-[#ff6163]' href='/admin/change-password'>Change Password</a>
+      </div>
+    </Card.Session>
+  );
+}
+
+
 function General({ admin }) {
   return (
     <Card>
@@ -67,6 +78,10 @@ function General({ admin }) {
             // eslint-disable-next-line react/no-unstable-nested-components
             component: { default: () => <Status status={admin.status} /> },
             sortOrder: 25
+          },
+          {
+            component:{default: () => <ChangePassword/>},
+            sortOrder: 35
           }
         ]}
       />

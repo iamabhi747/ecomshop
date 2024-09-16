@@ -1,0 +1,5 @@
+{
+  "methods": ["POST"],
+  "path": "/admins/reset-password",
+  "access": "public"
+}
