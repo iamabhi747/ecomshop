@@ -54,6 +54,8 @@
     "webpack-bundle-analyzer": "^4.5.0"
   },
   "dependencies": {
-    "nodemailer": "6.9.15"
+    "nodemailer": "6.9.15",
+    "razorpay": "2.9.4",
+    "react-razorpay": "2.0.1"
   }
 }

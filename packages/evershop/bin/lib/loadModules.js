@@ -67,15 +67,20 @@ const coreModules = [
     path: path.resolve(__dirname, '../../src/modules/promotion')
   },
   {
+    name: 'razorpay',
+    resolve: path.resolve(__dirname, '../../src/modules/razorpay'),
+    path: path.resolve(__dirname, '../../src/modules/razorpay')
+  },
+  {
     name: 'setting',
     resolve: path.resolve(__dirname, '../../src/modules/setting'),
     path: path.resolve(__dirname, '../../src/modules/setting')
   },
-  {
-    name: 'stripe',
-    resolve: path.resolve(__dirname, '../../src/modules/stripe'),
-    path: path.resolve(__dirname, '../../src/modules/stripe')
-  },
+  // {
+  //   name: 'stripe',
+  //   resolve: path.resolve(__dirname, '../../src/modules/stripe'),
+  //   path: path.resolve(__dirname, '../../src/modules/stripe')
+  // },
   {
     name: 'tax',
     resolve: path.resolve(__dirname, '../../src/modules/tax'),
