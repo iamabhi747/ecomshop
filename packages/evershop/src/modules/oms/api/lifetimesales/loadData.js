@@ -9,12 +9,31 @@ module.exports = async function lifetimeSales(
   delegate,
   next
 ) {
+  const currentAdminUser = request.getCurrentUser();
+  const isSuperAdmin = request.isSuperAdmin();
+
   const query = select();
   query
     .from('order')
     .select('grand_total', 'total')
     .select('payment_status')
-    .select('shipment_status');
+    .select('shipment_status')
+    .select('canceled');
+
+  // If user is super admin then show lifetime sales for all orders
+  // If user is store admin then show lifetime sales for only orders that belong to the store
+  if (currentAdminUser && !isSuperAdmin) {
+    query.where('store_uuid', '=', currentAdminUser.store_uuid);
+  } else if (!currentAdminUser) {
+    response.json({
+      orders: 0,
+      total: 0,
+      completed_percentage: 0,
+      cancelled_percentage: 0
+    });
+    return;
+  }
+
   const results = await query.execute(pool);
 
   let total = 0;
@@ -29,8 +48,7 @@ module.exports = async function lifetimeSales(
       completed += 1;
     }
     if (
-      result.payment_status === 'cancelled' &&
-      result.shipment_status === 'cancelled'
+      result.canceled === true
     ) {
       cancelled += 1;
     }
