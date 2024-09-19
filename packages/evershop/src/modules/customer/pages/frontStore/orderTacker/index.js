@@ -9,6 +9,17 @@ module.exports = async (request, response, delegate, next) => {
     const query = select();
     query.from('order');
     query.andWhere('order.uuid', '=', request.params.id);
+
+    // If user is customer then only show order that belong to that customer
+    const customer = request.getCurrentCustomer();
+    if (customer) {
+      query.andWhere('order.customer_id', '=', customer.customer_id);
+    } else {
+      response.status(404);
+      next();
+      return;
+    }
+
     const order = await query.load(pool);
 
     if (order === null) {

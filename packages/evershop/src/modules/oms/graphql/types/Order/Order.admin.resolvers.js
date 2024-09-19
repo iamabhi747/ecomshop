@@ -5,8 +5,12 @@ const { OrderCollection } = require('../../../services/OrderCollection');
 
 module.exports = {
   Query: {
-    orders: async (_, { filters = [] }) => {
+    orders: async (_, { filters = [] }, { user }) => {
       const query = getOrdersBaseQuery();
+
+      // Only show orders that belong to the current admin's store
+      query.where('order.store_uuid', '=', user.store_uuid);
+
       const root = new OrderCollection(query);
       await root.init(filters);
       return root;

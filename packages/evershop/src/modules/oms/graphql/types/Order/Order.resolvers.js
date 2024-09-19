@@ -6,9 +6,27 @@ const { getOrdersBaseQuery } = require('../../../services/getOrdersBaseQuery');
 
 module.exports = {
   Query: {
-    order: async (_, { uuid }, { pool }) => {
+    order: async (_, { uuid }, { pool, user, customer }) => {
       const query = getOrdersBaseQuery();
       query.where('uuid', '=', uuid);
+
+      // If user is customer then only show order that belong to that customer
+      // If user is seller admin then only show orders that belong to that seller
+      // If user is super admin then show all orders
+      let isSuperAdmin = false;
+      if (user) {
+        const admin_super_uuid = getConfig('admin_super_uuid', null);
+        if (admin_super_uuid && user.uuid === admin_super_uuid) {
+          isSuperAdmin = true;
+        }
+      }
+
+      if (user && !isSuperAdmin) {
+        query.andWhere('store_uuid', '=', user.store_uuid);
+      } else if (customer) {
+        query.andWhere('customer_id', '=', customer.customer_id);
+      }
+
       const order = await query.load(pool);
       if (!order) {
         return null;

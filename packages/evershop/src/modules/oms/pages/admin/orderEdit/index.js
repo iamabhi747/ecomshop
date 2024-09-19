@@ -9,6 +9,19 @@ module.exports = async (request, response, delegate, next) => {
     const query = select();
     query.from('order');
     query.andWhere('order.uuid', '=', request.params.id);
+
+    // If user is seller admin then only show orders that belong to that seller
+    // If user is super admin then show all orders
+    const currentAdminUser = request.getCurrentUser();
+    const isSuperAdmin = request.isSuperAdmin();
+    if (currentAdminUser && !isSuperAdmin) {
+      query.andWhere('order.store_uuid', '=', currentAdminUser.store_uuid);
+    } else if (!isSuperAdmin) {
+      response.status(404);
+      next();
+      return;
+    }
+
     const order = await query.load(pool);
 
     if (order === null) {
