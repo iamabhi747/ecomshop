@@ -4,6 +4,9 @@ const { pool } = require('@evershop/evershop/src/lib/postgres/connection');
 
 // eslint-disable-next-line no-unused-vars
 module.exports = async (request, response, stack, next) => {
+  const currentAdminUser = request.getCurrentUser();
+  const isSuperAdmin = request.isSuperAdmin();
+
   response.$body = [];
   const { period = 'weekly' } = request.query;
   let i = 5;
@@ -57,6 +60,13 @@ module.exports = async (request, response, stack, next) => {
         .select('COUNT (order_id)', 'count')
         .where('created_at', '>=', element.from)
         .and('created_at', '<=', element.to);
+      
+      // If user is super admin then show sales for all orders
+      // If user is store admin then show sales for only orders that belong to the store
+      if (currentAdminUser && !isSuperAdmin) {
+        query.andWhere('store_uuid', '=', currentAdminUser.store_uuid);
+      }
+
       query.limit(0, 1);
       const queryResult = await query.execute(pool);
       return {
