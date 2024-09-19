@@ -2,6 +2,7 @@
 const { select } = require('@evershop/postgres-query-builder');
 const { DateTime } = require('luxon');
 const { pool } = require('@evershop/evershop/src/lib/postgres/connection');
+const { getConfig } = require('@evershop/evershop/src/lib/util/getConfig');
 const { getCartTotalBeforeDiscount } = require('./getCartTotalBeforeDiscount');
 
 module.exports.registerDefaultValidators =
@@ -31,6 +32,10 @@ module.exports.registerDefaultValidators =
         } else {
           return false;
         }
+      },
+      function couponOwnerValidator(cart, coupon) {
+        const store_super_uuid = getConfig("store_super_uuid");
+        return (store_super_uuid && (coupon.store_uuid === store_super_uuid)) || (coupon.store_uuid === cart.getData('store_uuid'));
       },
       async function timeUsedValidator(cart, coupon) {
         if (

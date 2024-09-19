@@ -12,6 +12,9 @@
     "description": {
       "type": "string"
     },
+    "store_uuid": {
+      "type": "string"
+    },
     "discount_amount": {
       "type": ["string", "number"],
       "pattern": "^\\d*\\.?\\d*$"

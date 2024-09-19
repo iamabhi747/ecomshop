@@ -1,6 +1,7 @@
 const { GraphQLJSON } = require('graphql-type-json');
 const { buildUrl } = require('@evershop/evershop/src/lib/router/buildUrl');
 const { camelCase } = require('@evershop/evershop/src/lib/util/camelCase');
+const { getConfig } = require('@evershop/evershop/src/lib/util/getConfig');
 const {
   getCouponsBaseQuery
 } = require('../../../services/getCouponsBaseQuery');
@@ -9,9 +10,25 @@ const { CouponCollection } = require('../../../services/CouponCollection');
 module.exports = {
   JSON: GraphQLJSON,
   Query: {
-    coupon: async (root, { id }, { pool }) => {
+    coupon: async (root, { id }, { pool, user }) => {
+
+      // If user is normal admin then only show the coupons which are owned by that admin's store
+      // If user is super admin then show all coupons
+      let isSuperAdmin = false;
+      if (user) {
+        const admin_super_uuid = getConfig('admin_super_uuid', null);
+        if (admin_super_uuid && user.uuid === admin_super_uuid) {
+          isSuperAdmin = true;
+        }
+      }
+
       const query = getCouponsBaseQuery();
       query.where('coupon_id', '=', id);
+
+      if (user && !isSuperAdmin) {
+        query.andWhere('store_uuid', '=', user.store_uuid);
+      }
+      
       const coupon = await query.load(pool);
       return coupon ? camelCase(coupon) : null;
     },
@@ -20,7 +37,23 @@ module.exports = {
       if (!user) {
         return [];
       }
+
+      // If user is normal admin then only show the coupons which are owned by that admin's store
+      // If user is super admin then show all coupons
+      let isSuperAdmin = false;
+      if (user) {
+        const admin_super_uuid = getConfig('admin_super_uuid', null);
+        if (admin_super_uuid && user.uuid === admin_super_uuid) {
+          isSuperAdmin = true;
+        }
+      }
+
       const query = getCouponsBaseQuery();
+
+      if (user && !isSuperAdmin) {
+        query.andWhere('store_uuid', '=', user.store_uuid);
+      }
+
       const root = new CouponCollection(query);
       await root.init(filters);
       return root;

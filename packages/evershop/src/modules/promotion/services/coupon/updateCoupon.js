@@ -33,10 +33,15 @@ function validateCouponDataBeforeInsert(data) {
 }
 
 async function updateCouponData(uuid, data, connection) {
-  const coupon = await select()
+  const query = await select()
     .from('coupon')
-    .where('uuid', '=', uuid)
-    .load(connection);
+    .where('uuid', '=', uuid);
+
+  if (!data.isSuperAdmin) {
+    query.andWhere('store_uuid', '=', data.store_uuid);
+  }
+  
+  const coupon = query.load(connection);
 
   if (!coupon) {
     throw new Error('Requested coupon not found');

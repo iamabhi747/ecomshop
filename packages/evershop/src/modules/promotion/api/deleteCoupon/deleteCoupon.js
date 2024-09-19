@@ -1,5 +1,6 @@
 const {
   OK,
+  UNAUTHORIZED,
   INTERNAL_SERVER_ERROR
 } = require('@evershop/evershop/src/lib/util/httpStatus');
 const deleteCoupon = require('../../services/coupon/deleteCoupon');
@@ -8,9 +9,25 @@ const deleteCoupon = require('../../services/coupon/deleteCoupon');
 module.exports = async (request, response, delegate, next) => {
   try {
     const { id } = request.params;
-    const coupon = await deleteCoupon(id, {
+
+    // Only super admin or owner of the coupon can delete the coupon
+    const currentAdminUser = request.getCurrentUser();
+    const isSuperAdmin = request.isSuperAdmin();
+
+    if (!currentAdminUser) {
+      response.status(UNAUTHORIZED);
+      response.json({
+        error: {
+          status: UNAUTHORIZED,
+          message: 'User not found'
+        }
+      });
+      return
+    }
+
+    const coupon = await deleteCoupon(id, currentAdminUser.store_uuid, {
       routeId: request.currentRoute.id
-    });
+    }, isSuperAdmin);
     response.status(OK);
     response.json({
       data: coupon

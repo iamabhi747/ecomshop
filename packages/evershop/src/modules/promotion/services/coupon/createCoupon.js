@@ -21,7 +21,8 @@ function validateCouponDataBeforeInsert(data) {
     'coupon',
     'status',
     'discount_amount',
-    'discount_type'
+    'discount_type',
+    'store_uuid'
   ];
   const jsonSchema = getValueSync(
     'createCouponDataJsonSchema',
