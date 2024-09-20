@@ -7,8 +7,7 @@ module.exports = exports = async (connection) => {
             "reset_password_token_id" INT GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) PRIMARY KEY,
             "admin_user_id" INT NOT NULL,
             "token" TEXT NOT NULL,
-            "created_at" timestamp with time zone NOT NULL DEFAULT now(),
-            CONSTRAINT "FK_RESET_PASSWORD_TOKEN_ADMIN" FOREIGN KEY ("admin_user_id") REFERENCES "admin_user" ("admin_user_id") ON DELETE CASCADE
+            "created_at" timestamp with time zone NOT NULL DEFAULT now()
         );`
     );
 };
