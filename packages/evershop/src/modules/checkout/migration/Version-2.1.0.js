@@ -24,7 +24,12 @@ module.exports = exports = async (connection) => {
 
   await execute(
     connection,
-    `CREATE TRIGGER IF NOT EXISTS "TRIGGER_ORDER_CANCELABLE"
+    `DROP TRIGGER IF EXISTS "TRIGGER_ORDER_CANCELABLE" ON "order";`
+  );
+
+  await execute(
+    connection,
+    `CREATE TRIGGER "TRIGGER_ORDER_CANCELABLE"
     BEFORE UPDATE ON "order"
     FOR EACH ROW
     EXECUTE PROCEDURE update_order_cancelable();`
