@@ -149,7 +149,7 @@ echo "[+] Ecomshop Configured"
 echo "[*] Installing Nginx"
 sudo apt install -y nginx
 echo "[*] Configuring Nginx"
-sudo cp ~/ecomshop/ngnix.conf /etc/nginx/sites-available/$PK_NAME.conf
+sudo cp ~/ecomshop/nginx.conf /etc/nginx/sites-available/$PK_NAME.conf
 sudo ln -s /etc/nginx/sites-available/$PK_NAME.conf /etc/nginx/sites-enabled/
 sudo unlink /etc/nginx/sites-enabled/default
 echo "[*] restarting Nginx"
