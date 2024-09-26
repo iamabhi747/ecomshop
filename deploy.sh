@@ -1,5 +1,6 @@
 echo "=== Package Information ==="
 read -p "Enter Package Name: " PK_NAME
+read -p "Enter Domain Name : " PK_DOMAIN
 
 echo
 echo "=== Admin Information ==="
@@ -64,6 +65,9 @@ sudo apt update
 sudo apt install -y nodejs npm
 sudo npm install -g pm2
 echo "[+] System Updated & node installed"
+
+echo "export PK_NAME=$PK_NAME" >> ~/.bashrc
+echo "export PK_DOMAIN=$PK_DOMAIN" >> ~/.bashrc
 
 # Install & Setup Postgres
 echo "[*] Installing Postgresql [installing]"
@@ -150,15 +154,19 @@ echo "[*] Installing Nginx"
 sudo apt install -y nginx
 echo "[*] Configuring Nginx"
 sudo cp ~/ecomshop/nginx.conf /etc/nginx/sites-available/$PK_NAME.conf
+sudo sed -i "s/DOMAIN_NAME/$PK_DOMAIN/g" /etc/nginx/sites-available/$PK_NAME.conf
 sudo ln -s /etc/nginx/sites-available/$PK_NAME.conf /etc/nginx/sites-enabled/
 sudo unlink /etc/nginx/sites-enabled/default
 echo "[*] restarting Nginx"
 sudo systemctl restart nginx
 echo "[+] Nginx setup completed"
+mkdir /etc/nginx/ssl
+echo "[i] Please add ssl certificate to /etc/nginx/ssl/$PK_NAME.crt"
+echo "[i] Please add ssl private key to /etc/nginx/ssl/$PK_NAME.key"
 
 # PM2 start
 echo "[*] Starting Ecomshop"
 cd ~/ecomshop
 pm2 stop $PK_NAME
-pm2 start npm --name $PK_NAME -- start
+pm2 start $PK_NAME
 echo "[+] Ecomshop is live"
