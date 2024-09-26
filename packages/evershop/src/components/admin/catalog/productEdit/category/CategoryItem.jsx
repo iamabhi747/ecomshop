@@ -24,7 +24,7 @@ function CategoryItem({ category, selectedCategory, setSelectedCategory }) {
   const [result] = useQuery({
     query: childrenQuery,
     variables: {
-      filters: [{ key: 'parent', operation: 'eq', value: category.categoryId }]
+      filters: [{ key: 'parent', operation: 'eq', value: category.categoryId.toString() }]
     },
     pause: !expanded
   });
