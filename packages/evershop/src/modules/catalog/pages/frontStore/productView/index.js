@@ -28,7 +28,8 @@ module.exports = async (request, response, delegate, next) => {
     query.andWhere('status', '=', 1);
     const product = await query.load(pool);
 
-    setContextValue(request, 'categoryId', product.category_id);
+    if (product?.category_id)
+      setContextValue(request, 'categoryId', product.category_id);
 
     if (product === null) {
       response.status(404);

@@ -4,10 +4,9 @@ import ProductList from '@components/frontStore/catalog/product/list/List';
 import { _ } from '@evershop/evershop/src/lib/locale/translate';
 
 export default function Products({
-  products: {
-    products: { items }
-  }
+  category
 }) {
+  const items = category?.products?.items || [];
   return (
     <div>
       <ProductList products={items} countPerRow={3} />
@@ -19,7 +18,7 @@ export default function Products({
 }
 
 Products.propTypes = {
-  products: PropTypes.shape({
+  category: PropTypes.shape({
     products: PropTypes.shape({
       items: PropTypes.arrayOf(
         PropTypes.shape({
@@ -47,7 +46,7 @@ Products.propTypes = {
 };
 
 Products.defaultProps = {
-  products: {
+  category: {
     products: {
       items: []
     }
@@ -61,7 +60,7 @@ export const layout = {
 
 export const query = `
   query Query {
-    products: category(id: getContextValue('categoryId')) {
+    category(id: getContextValue('categoryId', null)) {
       products {
         items {
           ...Product
