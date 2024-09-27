@@ -37,20 +37,20 @@ module.exports = {
         return null;
       }
     },
-    razorpayEndpointSecret: (setting, _, { user }) => {
+    razorpayWebhookSecret: (setting, _, { user }) => {
       const razorpayConfig = getConfig('system.razorpay', {});
-      if (razorpayConfig.endpointSecret) {
-        return `${razorpayConfig.endpointSecret.substr(
+      if (razorpayConfig.webhookSecret) {
+        return `${razorpayConfig.webhookSecret.substr(
           0,
           5
         )}*******************************`;
       }
       if (user) {
-        const razorpayEndpointSecret = setting.find(
-          (s) => s.name === 'razorpayEndpointSecret'
+        const razorpayWebhookSecret = setting.find(
+          (s) => s.name === 'razorpayWebhookSecret'
         );
-        if (razorpayEndpointSecret) {
-          return razorpayEndpointSecret.value;
+        if (razorpayWebhookSecret) {
+          return razorpayWebhookSecret.value;
         } else {
           return null;
         }

@@ -1,4 +1,4 @@
 extend type Setting {
   razorpaySecretKey: String
-  razorpayEndpointSecret: String
+  razorpayWebhookSecret: String
 }

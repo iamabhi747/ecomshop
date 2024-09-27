@@ -10,7 +10,7 @@ export default function RazorpayPayment({
     razorpayDislayName,
     razorpayKeyId,
     razorpaySecretKey,
-    razorpayEndpointSecret
+    razorpayWebhookSecret
   }
 }) {
   return (
@@ -78,9 +78,9 @@ export default function RazorpayPayment({
           <div className="col-span-2">
             <Field
               type="text"
-              name="razorpayEndpointSecret"
+              name="razorpayWebhookSecret"
               placeholder="Secret Key"
-              value={razorpayEndpointSecret}
+              value={razorpayWebhookSecret}
             />
           </div>
         </div>
@@ -95,7 +95,7 @@ RazorpayPayment.propTypes = {
     razorpayDislayName: PropTypes.string,
     razorpayKeyId: PropTypes.string,
     razorpaySecretKey: PropTypes.string,
-    razorpayEndpointSecret: PropTypes.string
+    razorpayWebhookSecret: PropTypes.string
   }).isRequired
 };
 
@@ -111,7 +111,7 @@ export const query = `
       razorpayPaymentStatus
       razorpayKeyId
       razorpaySecretKey
-      razorpayEndpointSecret
+      razorpayWebhookSecret
     }
   }
 `;

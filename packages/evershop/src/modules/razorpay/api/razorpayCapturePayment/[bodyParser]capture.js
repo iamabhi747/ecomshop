@@ -15,7 +15,7 @@ module.exports = async (request, response, delegate, next) => {
     const razorpayConfig = getConfig('system.razorpay', {});
 
     let razorpayWebhookSecret;
-    if (razorpayConfig.secretKey) {
+    if (razorpayConfig.webhookSecret) {
       razorpayWebhookSecret = razorpayConfig.webhookSecret;
     } else {
       razorpayWebhookSecret = await getSetting('razorpayWebhookSecret', '');
