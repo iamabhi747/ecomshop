@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+const smallestUnit = require('zero-decimal-currencies');
 
 export function Transactions({ transactions }) {
   let paidAmount = '';
   transactions.forEach((transaction) => {
     if (transaction.paymentAction.toUpperCase() === 'CAPTURE') {
-      paidAmount = transaction.amount.text; // TODO: How about partial captures?
+      paidAmount = smallestUnit.display(transaction.amount.value, 'INR'); // TODO: How about partial captures?
     }
   });
 

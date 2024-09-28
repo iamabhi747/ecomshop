@@ -70,7 +70,7 @@ module.exports = async (request, response, delegate, next) => {
     // Add transaction data to database
     await insert('payment_transaction')
       .given({
-        payment_transaction_order_id: orderId,
+        payment_transaction_order_id: order.order_id,
         transaction_id: razorpayPayment.id,
         transaction_type: razorpayPayment.method,
         amount: razorpayPayment.amount,
