@@ -56,7 +56,7 @@ export default function CheckoutForm({ razorpayKeyId }) {
   // const [, setDisabled] = useState(true);
   const [razorpayOrder, setRazorpayOrder] = useState({});
   const [Razorpay] = useRazorpay();
-  const { cartId, orderId, orderPlaced, paymentMethods /* checkoutSuccessUrl */ } = useCheckout();
+  const { cartId, orderId, orderPlaced, paymentMethods, checkoutSuccessUrl } = useCheckout();
 
   const [result] = useQuery({
     query: cartQuery,
@@ -102,8 +102,7 @@ export default function CheckoutForm({ razorpayKeyId }) {
         order_id: razorpayOrder.id,
         // eslint-disable-next-line no-unused-vars
         handler: (response) => {
-          // console.log(response);
-          // TODO: Handle the response
+          window.location.href = `${checkoutSuccessUrl}/${orderId}`;
         },
         prefill: {
           name: billingAddress.fullName,
@@ -115,8 +114,7 @@ export default function CheckoutForm({ razorpayKeyId }) {
         modal: {
           escape: false,
           ondismiss () {
-            // console.log('dismissed');
-            // TODO: Handle the dismiss event
+            window.location.href = `${checkoutSuccessUrl}/${orderId}`;
           }
         }
       };

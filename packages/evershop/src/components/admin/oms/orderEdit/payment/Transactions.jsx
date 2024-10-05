@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 const smallestUnit = require('zero-decimal-currencies');
 
 export function Transactions({ transactions }) {
