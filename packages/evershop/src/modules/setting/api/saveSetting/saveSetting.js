@@ -8,12 +8,25 @@ const {
 } = require('@evershop/evershop/src/lib/postgres/connection');
 const {
   OK,
+  UNAUTHORIZED,
   INTERNAL_SERVER_ERROR
 } = require('@evershop/evershop/src/lib/util/httpStatus');
 const { refreshSetting } = require('../../services/setting');
 
 // eslint-disable-next-line no-unused-vars
 module.exports = async (request, response, delegate, next) => {
+  if (!request.isSuperAdmin())
+  {
+    response.status(UNAUTHORIZED);
+    response.json({
+      error: {
+        status: UNAUTHORIZED,
+        message: 'You are not authorized to perform this action'
+      }
+    });
+    return;
+  }
+  
   const { body } = request;
   const connection = await getConnection();
   try {
