@@ -1,9 +1,9 @@
 const {
-  setContextValue
-} = require('../../../../graphql/services/contextHelper');
-const {
   NOT_FOUND
 } = require('@evershop/evershop/src/lib/util/httpStatus');
+const {
+  setContextValue
+} = require('../../../../graphql/services/contextHelper');
 
 module.exports = (request, response) => {
   if (!request.isSuperAdmin())
