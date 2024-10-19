@@ -1,41 +1,34 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Menu.scss';
 
 function createMenuItem(item, items) {
-  if (item.parentId !== -1) return null;
-
-  const submenu = items.filter((i) => i.parentId === item.categoryId).map((i) => (
-    <a href={i.url}>{i.name}</a>
-  ));
+  const subItems = items.filter(subItem => subItem.parentId === item.categoryId);
 
   return (
-    <li className="nav-item">
-      {/* <a className="nav-link hover:underline" href={i.url}>
-        {i.name}
-      </a> */}
-
-      <div className="dropdown">
-        <a className="dropbtn" href={item.url}>
-          {item.name}
-        </a>
-        {submenu.length > 0 ?
-        <div className="dropdown-content">
-          {submenu}
-        </div> : null}
-      </div>
-
+    <li className={`relative group ${subItems.length > 0 ? 'has-children' : ''}`}>
+      {subItems.length > 0 ? (
+        <>
+          <span className="menu-heading">{item.name}</span>
+          <ul className="dropdown-menu absolute hidden group-hover:flex">
+            {subItems.map(subItem => createMenuItem(subItem, items))}
+          </ul>
+        </>
+      ) : (
+        <a href={item.url} className="menu-item">{item.name}</a>
+      )}
     </li>
   );
 }
 
+
 export default function Menu({ menu: { items } }) {
+  const rootItems = items.filter(item => item.parentId === -1);
+
   return (
     <div className="main-menu self-center hidden md:block">
-      <ul className="nav flex space-x-11 justify-content-center">
-        {items.map((i) => (
-          <>{createMenuItem(i, items)}</>
-        ))}
+      <ul className="nav flex space-x-8 justify-content-center">
+        {rootItems.map(item => createMenuItem(item, items))}
       </ul>
     </div>
   );
@@ -45,7 +38,9 @@ Menu.propTypes = {
   menu: PropTypes.shape({
     items: PropTypes.arrayOf(
       PropTypes.shape({
+        categoryId: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
+        parentId: PropTypes.number.isRequired,
         url: PropTypes.string.isRequired
       })
     ).isRequired
