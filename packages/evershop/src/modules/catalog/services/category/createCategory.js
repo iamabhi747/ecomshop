@@ -45,6 +45,10 @@ async function insertCategoryData(data, connection) {
       throw new Error('Parent category not found');
     }
   }
+  else {
+    // eslint-disable-next-line no-param-reassign
+    data.parent_id = -1;
+  }
 
   const category = await insert('category').given(data).execute(connection);
   const description = await insert('category_description')
