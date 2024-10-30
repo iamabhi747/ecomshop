@@ -13,7 +13,7 @@ export default function MainBanner() {
           <div className="banner-section">
             <h3 className="section-title">FASHION</h3>
             <div className="image-container">
-              <img src='/fashion.jpg' alt="Fashion" />
+              <img src='/assets/fashion.jpg' alt="Fashion" />
             </div>
           </div>
 
@@ -21,7 +21,7 @@ export default function MainBanner() {
           <div className="banner-section">
             <h3 className="section-title">ELECTRONICS & ACCESSORIES</h3>
             <div className="image-container">
-              <img src='/electronics.jpg' alt="Electronics" />
+              <img src='/assets/electronics.jpg' alt="Electronics" />
             </div>
           </div>
 
@@ -29,7 +29,7 @@ export default function MainBanner() {
           <div className="banner-section">
             <h3 className="section-title">HOME & DECOR</h3>
             <div className="image-container">
-              <img src='/home_decor.jpg' alt="Home and Decor" />
+              <img src='/assets/home_decor.jpg' alt="Home and Decor" />
             </div>
           </div>
         </div>
