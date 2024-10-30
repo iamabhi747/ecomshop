@@ -16,7 +16,7 @@ export default function Logo({
       )}
       {!src && (
         <a href="/" className="logo-icon">
-          <img src="./image/Logo.jpg" width='50rem' alt="" />
+          <img src="./Logo.jpg" width='50rem' alt="" />
           {/* <svg
             width="128"
             height="146"
