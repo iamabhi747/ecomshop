@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Menu.scss';
 
-function createMenuItem(item, items) {
+function createMegaMenuItem(item, items) {
   const subItems = items.filter(subItem => subItem.parentId === item.categoryId);
 
   return (
@@ -10,9 +10,20 @@ function createMenuItem(item, items) {
       {subItems.length > 0 ? (
         <>
           <span className="menu-heading">{item.name}</span>
-          <ul className="dropdown-menu absolute hidden group-hover:flex">
-            {subItems.map(subItem => createMenuItem(subItem, items))}
-          </ul>
+          <div className="mega-menu absolute hidden group-hover:flex">
+            {subItems.map(subItem => (
+              <div key={subItem.categoryId} className="mega-menu-column">
+                <span className="mega-menu-heading">{subItem.name}</span>
+                <ul>
+                  {items.filter(child => child.parentId === subItem.categoryId).map(child => (
+                    <li key={child.categoryId}>
+                      <a href={child.url} className="menu-item">{child.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </>
       ) : (
         <a href={item.url} className="menu-item">{item.name}</a>
@@ -21,14 +32,13 @@ function createMenuItem(item, items) {
   );
 }
 
-
 export default function Menu({ menu: { items } }) {
   const rootItems = items.filter(item => item.parentId === -1);
 
   return (
     <div className="main-menu self-center hidden md:block">
       <ul className="nav flex space-x-8 justify-content-center">
-        {rootItems.map(item => createMenuItem(item, items))}
+        {rootItems.map(item => createMegaMenuItem(item, items))}
       </ul>
     </div>
   );
@@ -62,4 +72,5 @@ export const query = `
         parentId
       }
     }
-}`;
+  }
+`;
