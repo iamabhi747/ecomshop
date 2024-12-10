@@ -11,8 +11,8 @@ export default function ProductPageLayout() {
           <Area id="productPageMiddleRight" />
         </div>
         <Area id="productPageUpperBottom" className="product-page-top" />
+        <Area id="productPageBottom" className="product-page-top" />
       </div>
-      <Area id="productPageBottom" className="product-page-top" />
     </div>
   );
 }
