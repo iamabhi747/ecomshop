@@ -1,6 +1,7 @@
 extend type AdminUser {
   updateApi: String!
   viewUrl: String!
+  editUrl: String!
 }
 
 """

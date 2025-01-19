@@ -334,7 +334,7 @@ export default function AdminGrid({
                         <CustomerNameRow
                           id="name"
                           name={a.fullName}
-                            url={a.viewUrl}
+                            url={a.editUrl}
                         />
                       )
                     },
@@ -394,7 +394,7 @@ AdminGrid.propTypes = {
           value: PropTypes.string.isRequired,
           text: PropTypes.string.isRequired
         }).isRequired,
-        viewUrl: PropTypes.string.isRequired,
+        editUrl: PropTypes.string.isRequired,
         updateApi: PropTypes.string.isRequired
       })
     ).isRequired,
@@ -428,7 +428,7 @@ export const query = `
           text
         }
         updateApi
-        viewUrl
+        editUrl
       }
       total
       currentFilters {
