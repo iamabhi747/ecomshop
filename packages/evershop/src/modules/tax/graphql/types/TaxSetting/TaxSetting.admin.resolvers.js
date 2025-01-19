@@ -29,6 +29,16 @@ module.exports = {
       } else {
         return null;
       }
+    },
+    storeCommission: (setting) => {
+      const storeCommission = setting.find(
+        (s) => s.name === 'storeCommission'
+      );
+      if (storeCommission && storeCommission.value) {
+        return storeCommission.value;
+      } else {
+        return 0;
+      }
     }
   }
 };

@@ -1,0 +1,5 @@
+{
+  "methods": ["PATCH"],
+  "path": "/claims/:id",
+  "access": "private"
+}

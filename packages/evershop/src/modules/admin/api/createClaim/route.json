@@ -1,0 +1,5 @@
+{
+  "methods": ["POST"],
+  "path": "/claim/new",
+  "access": "private"
+}

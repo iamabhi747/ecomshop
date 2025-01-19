@@ -13,6 +13,7 @@ module.exports = {
         }
       });
       return buildUrl(routeId, queries);
-    }
+    },
+    chillS: (root, { value }) => value
   }
 };

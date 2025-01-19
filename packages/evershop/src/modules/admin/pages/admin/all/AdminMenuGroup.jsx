@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import UsersIcon from '@heroicons/react/solid/esm/UsersIcon';
-import UserIcon from '@heroicons/react/outline/UserIcon';
+import UserIcon from '@heroicons/react/solid/UserIcon';
+import CurrencyRupeeIcon from '@heroicons/react/solid/CurrencyRupeeIcon';
 import NavigationItemGroup from '@components/admin/cms/NavigationItemGroup';
 
-export default function AdminMenuGroup({ adminGrid, adminView, isSuperAdmin, currentAdminUser }) {
+export default function AdminMenuGroup({ adminGrid, adminView, adminClaims, isSuperAdmin, currentAdminUser }) {
   if (currentAdminUser === null) return null;
 
   const items = [];
@@ -20,6 +21,12 @@ export default function AdminMenuGroup({ adminGrid, adminView, isSuperAdmin, cur
     Icon: UserIcon,
     url: adminView.replace('_-uuid-_', currentAdminUser.uuid),
     title: 'Account'
+  });
+
+  items.push({
+    Icon: CurrencyRupeeIcon,
+    url: adminClaims,
+    title: 'Claims'
   });
 
 
@@ -38,6 +45,7 @@ export default function AdminMenuGroup({ adminGrid, adminView, isSuperAdmin, cur
 AdminMenuGroup.propTypes = {
   adminGrid: PropTypes.string.isRequired,
   adminView: PropTypes.string.isRequired,
+  adminClaims: PropTypes.string.isRequired,
   isSuperAdmin: PropTypes.bool.isRequired,
   currentAdminUser: PropTypes.shape({
     uuid: PropTypes.string.isRequired
@@ -53,6 +61,7 @@ export const query = `
   query Query {
     adminGrid: url(routeId:"adminGrid")
     adminView: url(routeId:"adminView", params: [{key:"id", value:"_-uuid-_"}])
+    adminClaims: url(routeId:"adminClaims")
     isSuperAdmin: isCurrentAdminUserSuperAdmin
     currentAdminUser: currentAdminUser { uuid }
   }

@@ -1,0 +1,20 @@
+
+type Claim {
+    uuid: ID!
+    amount: String!
+    status: String!
+    createdAt: Date!
+    storeUuid: ID!
+    storeName: String!
+    updateApi: String!
+}
+
+type ClaimCollection {
+  items: [Claim]
+  total: Int!
+  currentFilters: [Filter]
+}
+
+extend type Query {
+    claims (filters: [FilterInput]): ClaimCollection
+}

@@ -8,4 +8,7 @@ input UrlParam {
 
 extend type Query {
   url(routeId: String!, params: [UrlParam]): String!
+  chillS(value: String!): String!
+  chillI(value: Int!): Int!
+  chillF(value: Float!): Float!
 }

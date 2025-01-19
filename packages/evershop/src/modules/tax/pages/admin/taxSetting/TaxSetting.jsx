@@ -88,6 +88,34 @@ export default function TaxSetting({
         </div>
         <div className="col-span-4 grid grid-cols-1 gap-8">
           <Card>
+            <Card.Session title="Store Commission Percentage">
+              <Form
+                id="taxStorecommission"
+                method='POST'
+                action={saveSettingApi}
+                onSuccess={(response) => {
+                  if (response.error) {
+                    toast.error(response.error.message);
+                  } else {
+                    toast.success('Store Commission is saved successfully!')
+                  }
+                }}
+              >
+                <Field
+                  id="commission"
+                  name="storeCommission"
+                  value={setting.storeCommission || 0}
+                  // onChange={(e) => setAmount(e.target.value)}
+                  placeholder="Commission Percentage"
+                  label="Commission Percentage"
+                  type="text"
+                  validationRules={['notEmpty', 'number']}
+                  suffix="%"
+                />
+              </Form>
+            </Card.Session>
+          </Card>
+          <Card>
             <Card.Session title="Tax">
               <div>
                 Configure the tax classes that will be available to your
@@ -208,7 +236,8 @@ TaxSetting.propTypes = {
   setting: PropTypes.shape({
     defaultProductTaxClassId: PropTypes.string,
     defaultShippingTaxClassId: PropTypes.string,
-    baseCalculationAddress: PropTypes.string
+    baseCalculationAddress: PropTypes.string,
+    storeCommission: PropTypes.number
   }).isRequired
 };
 
@@ -225,6 +254,7 @@ export const query = `
       defaultProductTaxClassId
       defaultShippingTaxClassId
       baseCalculationAddress
+      storeCommission
     }
   }
 `;
