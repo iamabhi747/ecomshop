@@ -3,6 +3,22 @@ read -p "Enter Package Name: " PK_NAME
 read -p "Enter Domain Name : " PK_DOMAIN
 
 echo
+echo "===== SSL Certificate ====="
+if [ ! -f "/etc/nginx/ssl/$PK_NAME.crt" ]; then
+    echo "Please add SSL certificate to /etc/nginx/ssl/$PK_NAME.crt"
+else
+    echo "SSL certificate found (/etc/nginx/ssl/$PK_NAME.crt)"
+fi
+if [ ! -f "/etc/nginx/ssl/$PK_NAME.key" ]; then
+    echo "Please add SSL private key to /etc/nginx/ssl/$PK_NAME.key"
+else
+    echo "SSL private key found (/etc/nginx/ssl/$PK_NAME.key)"
+fi
+if [ ! -f "/etc/nginx/ssl/$PK_NAME.crt" ] || [ ! -f "/etc/nginx/ssl/$PK_NAME.key" ]; then
+    exit 1
+fi
+
+echo
 echo "=== Admin Information ==="
 read -p "Enter Admin Name: " ADMIN_NAME
 read -p "Enter Admin Email: " ADMIN_EMAIL
